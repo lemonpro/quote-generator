@@ -106,10 +106,11 @@
             <!-- Canvas Size (Ratio) Selector -->
             <div>
                 <label class="block text-sm font-semibold mb-2">Canvas Ratio</label>
-                <div class="flex gap-2">
-                    <button onclick="setRatio('1/1')" class="flex-1 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md text-sm font-medium">1:1</button>
-                    <button onclick="setRatio('4/5')" class="flex-1 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md text-sm font-medium">4:5</button>
-                    <button onclick="setRatio('9/16')" class="flex-1 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md text-sm font-medium">9:16</button>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="setRatio('1/1')" class="flex-1 min-w-[50px] py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md text-sm font-medium">1:1</button>
+                    <button onclick="setRatio('4/5')" class="flex-1 min-w-[50px] py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md text-sm font-medium">4:5</button>
+                    <button onclick="setRatio('9/16')" class="flex-1 min-w-[50px] py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md text-sm font-medium">9:16</button>
+                    <button onclick="setRatio('3/2')" class="flex-1 min-w-[50px] py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md text-sm font-medium">3:2</button>
                 </div>
             </div>
             <!-- Font Selector -->
@@ -214,7 +215,10 @@
                     <!-- Quote Content with Dotted Line -->
                     <div class="flex flex-col z-10 relative">
                         <div id="quote-text" class="font-inter text-left outline-none transition-all duration-200" style="font-size: 24px; line-height: 1.5;" contenteditable="true" data-placeholder="Type your brilliant quote here...">Quality is not an act, it is a habit. Click here to replace this text with your own words.</div>
-                        <hr id="quote-divider" class="border-t-[3px] border-dotted border-current opacity-30 mt-8 w-full transition-opacity">
+                        <div id="divider-container" class="w-full mt-8">
+                            <hr id="quote-divider" class="border-t-[1px] border-dotted border-current opacity-30 w-full transition-opacity">
+                            <div class="text-[12px] font-inter opacity-40 font-light tracking-wide mt-2">© D&B People</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -315,7 +319,7 @@
         // --- Toggles ---
         function toggleDivider() {
             const isChecked = document.getElementById('divider-toggle').checked;
-            quoteDivider.style.display = isChecked ? 'block' : 'none';
+            document.getElementById('divider-container').style.display = isChecked ? 'block' : 'none';
         }
         
         function toggleShadow() {

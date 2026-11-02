@@ -162,14 +162,14 @@
                         <label class="block text-sm font-semibold mb-2">Font Size</label>
                         <span id="font-size-val" class="text-xs text-gray-500">24px</span>
                     </div>
-                    <input type="range" min="16" max="96" value="24" class="w-full cursor-pointer" oninput="updateFontSize(this.value)">
+                    <input id="font-size-range" type="range" min="16" max="96" value="24" class="w-full cursor-pointer" oninput="updateFontSize(this.value)">
                 </div>
                 <div>
                     <div class="flex justify-between">
                         <label class="block text-sm font-semibold mb-2">Line Height</label>
                         <span id="line-height-val" class="text-xs text-gray-500">1.5</span>
                     </div>
-                    <input type="range" min="1.0" max="2.5" step="0.1" value="1.5" class="w-full cursor-pointer" oninput="updateLineHeight(this.value)">
+                    <input id="line-height-range" type="range" min="1.0" max="2.5" step="0.1" value="1.5" class="w-full cursor-pointer" oninput="updateLineHeight(this.value)">
                 </div>
             </div>
             <!-- Formatting & Alignment -->
@@ -274,6 +274,20 @@
         const profileSection = document.getElementById('profile-section');
         const brandLine = document.getElementById('brand-line');
         const footerHandle = document.getElementById('footer-handle');
+        const fontSizeRange = document.getElementById('font-size-range');
+        const lineHeightRange = document.getElementById('line-height-range');
+
+        function applyQuoteTypography(sizeValue, lineValue) {
+            const safeSize = Number(sizeValue) || 24;
+            const safeLine = Number(lineValue) || 1.5;
+
+            quoteText.style.fontSize = safeSize + 'px';
+            quoteText.style.lineHeight = safeLine;
+            document.getElementById('font-size-val').textContent = safeSize + 'px';
+            document.getElementById('line-height-val').textContent = safeLine.toFixed(1);
+            quoteText.setAttribute('data-size', safeSize);
+            quoteText.setAttribute('data-line-height', safeLine);
+        }
         
         // --- Aspect Ratio Logic ---
         function setRatio(ratio) {
@@ -326,13 +340,13 @@
         }
         // --- Font Adjustments Logic ---
         function updateFontSize(val) {
-            quoteText.style.fontSize = val + 'px';
-            document.getElementById('font-size-val').innerText = val + 'px';
+            const sizeValue = Number(val) || 24;
+            applyQuoteTypography(sizeValue, lineHeightRange.value);
         }
         
         function updateLineHeight(val) {
-            quoteText.style.lineHeight = val;
-            document.getElementById('line-height-val').innerText = val;
+            const lineValue = Number(val) || 1.5;
+            applyQuoteTypography(fontSizeRange.value, lineValue);
         }
         // --- Typography Logic ---
         function updateFont() {
@@ -411,6 +425,7 @@
             });
         }
 
+        applyQuoteTypography(fontSizeRange.value, lineHeightRange.value);
         updateFooterHandle();
     </script>
 </body>
